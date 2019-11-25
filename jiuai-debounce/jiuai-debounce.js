@@ -1,1 +1,14 @@
-export default {keyList: {},canDoFunction(options = {}) {if (!this.keyList[options.key]) {this.lockKey(options.key);options.success && options.success();if (options.time) {setTimeout(() => {this.releaseKey(options.key)}, options.time);}} else {options.fail && options.fail()}},releaseKey(key) {this.keyList[key] = false;},lockKey(key){this.keyList[key] = true;}}
+export default {
+	keyList: {},
+	canDoFunction(b = {}) {
+		this.keyList[b.key] ? b.fail && b.fail() : (this.lockKey(b.key), b.success && b.success(), b.time && setTimeout(() => {
+			this.releaseKey(b.key)
+		}, b.time))
+	},
+	releaseKey(b) {
+		delete this.keyList[b]
+	},
+	lockKey(b) {
+		this.keyList[b] = !0
+	}
+};
